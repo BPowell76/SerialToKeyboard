@@ -1,4 +1,6 @@
-﻿namespace SerialToKeyboard
+﻿using System.Windows;
+
+namespace SerialToKeyboard
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -8,6 +10,11 @@
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BtnEnable_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
