@@ -5,9 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SerialToKeyboard"
         mc:Ignorable="d"
-        Title="Serial to Keyboard" Height="200" Width="325">
+        Title="Serial to Keyboard"
+        Height="200"
+        Width="500">
     <Grid>
         <Label Margin="20,5,0,0"
+                       Width="150"
+                       Height="30"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       FontWeight="Bold"
+                       FontSize="11pt"
+                       Content="COM Port"/>
+        <ComboBox x:Name="cmbCOMPorts"
+                  Margin="20,40,0,0"
+                  Width="150"
+                  Height="25"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  FontSize="11pt"/>
+        <Label Margin="200,5,0,0"
                Width="150"
                Height="30"
                HorizontalAlignment="Left"
@@ -16,13 +35,13 @@
                VerticalContentAlignment="Center"
                FontWeight="Bold"
                FontSize="11pt"
-               Content="Select Baud Rate"/>
+               Content="Baud Rate"/>
         <StackPanel x:Name="baudRadioStack"
                     Width="150"
                     Height="125"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Margin="20,40,0,0">
+                    Margin="200,40,0,0">
             <RadioButton x:Name="radBtn4800" FontSize="11pt">4800</RadioButton>
             <RadioButton x:Name="radBtn9600" FontSize="11pt">9600</RadioButton>
             <RadioButton x:Name="radBtn19200" FontSize="11pt">19200</RadioButton>
