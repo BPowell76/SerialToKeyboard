@@ -242,3 +242,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 !README.md
 !LICENSE.txt
+*/bin/Debug
+!*/bin/Release
+*/bin/Release/*.pdb
+*/bin/Release/*.exe.config
