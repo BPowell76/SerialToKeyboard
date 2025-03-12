@@ -242,4 +242,5 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 !README.md
 !LICENSE.txt
-!*/bin/
+*/bin/Debug
+!*/bin/Release
