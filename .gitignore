@@ -244,3 +244,5 @@ fabric.properties
 !LICENSE.txt
 */bin/Debug
 !*/bin/Release
+*/bin/Release/*.pdb
+*/bin/Release/*.exe.config
