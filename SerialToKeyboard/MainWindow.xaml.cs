@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,8 @@ namespace SerialToKeyboard
         private List<RadioButton> _buttons = new List<RadioButton>();
         private ComToKey _transfer;
         private bool _isEnabled = false;
+        private bool _errorHappened = false;
+        private int _activeBaud = 0;
         
         public MainWindow()
         {
@@ -45,27 +48,35 @@ namespace SerialToKeyboard
         {
             if (_isEnabled)
             {
-                _isEnabled = false;
-                btnEnable.Content = "Enable";
-                lblStatus.Content = "Deactivated";
-                lblStatus.Foreground = new SolidColorBrush(Colors.Red);
                 StopListening();
+                if (!_errorHappened)
+                {
+                    SetInterfaceEnable(true); 
+                    _isEnabled = false;
+                    btnEnable.Content = "Enable";
+                    lblStatus.Content = "Deactivated";
+                    lblStatus.Foreground = new SolidColorBrush(Colors.Red);    
+                }
+                
             }
             else
             {
-                _isEnabled = true;
-                btnEnable.Content = "Disable";
-                lblStatus.Content = "Activated";
-                lblStatus.Foreground = new SolidColorBrush(Colors.Green);
                 StartListening();
+                if (!_errorHappened)
+                {
+                    SetInterfaceEnable(false);
+                    _isEnabled = true;
+                    btnEnable.Content = "Disable";
+                    lblStatus.Content = "Activated";
+                    lblStatus.Foreground = new SolidColorBrush(Colors.Green);
+                }
             }
         }
         
         private void StopListening()
         {
-            //_transfer.Stop();
-            //_transfer.Dispose();
-            SetInterfaceEnable(true); 
+            _transfer.Stop();
+            _transfer.Dispose();
         }
         
         private void StartListening()
@@ -73,12 +84,46 @@ namespace SerialToKeyboard
             if (_transfer != null)
                 _transfer.Dispose();
         
-            SetInterfaceEnable(false);
-            //var pName = cmbCOMPorts.SelectedItem.ToString();
-            int pBaud;
-            //int.TryParse(cmbBaud.SelectedItem.ToString(), out pBaud);
-            //_transfer = new ComToKey(new SerialPort(pName, pBaud, Parity.None, 8, StopBits.One));
-            //_transfer.Start();
+            string selectedPort = cmbCOMPorts.SelectedItem.ToString();
+            if (radBtn4800.IsChecked == true)
+                _activeBaud = 4800;
+            else if (radBtn9600.IsChecked == true)
+                _activeBaud = 9600;
+            else if (radBtn19200.IsChecked == true)
+                _activeBaud = 19200;
+            else if (radBtn38400.IsChecked == true)
+                _activeBaud = 38400;
+            else if (radBtn57600.IsChecked == true)
+                _activeBaud = 57600;
+            else if (radBtn115200.IsChecked == true)
+                _activeBaud = 115200;
+            else
+                _activeBaud = 0;
+
+            if (_activeBaud == 0)
+            {
+                MessageBox.Show(
+                    "A baud rate is required to correctly interface with the device's serial port.",
+                    "Missing Baud Rate",
+                    MessageBoxButton.OK);
+                _errorHappened = true;
+                return;
+            }
+
+            if (String.IsNullOrEmpty(selectedPort))
+            {
+                 MessageBox.Show(
+                     "A COM port is required to correctly interface with the device's serial port.",
+                     "Missing COM Port",
+                     MessageBoxButton.OK);
+
+                 _errorHappened = true;
+                 cmbCOMPorts.Focus();
+                 return;
+            }
+            
+            _transfer = new ComToKey(new SerialPort(selectedPort, _activeBaud, Parity.None, 8, StopBits.One));
+            _transfer.Start();
         }
         
         private void SetInterfaceEnable(bool b)
@@ -88,6 +133,18 @@ namespace SerialToKeyboard
                 button.IsEnabled = b;
             }
             cmbCOMPorts.IsEnabled = b;
+        }
+
+        private void CmbCOMPorts_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _errorHappened = false;
+        }
+
+        private void RadBtn_OnChecked(object sender, RoutedEventArgs e)
+        {
+            _errorHappened = false;
+            RadioButton radioSender = (RadioButton)sender;
+            _activeBaud = Convert.ToInt32(radioSender.Content);
         }
     }
 }

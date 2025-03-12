@@ -25,7 +25,8 @@
                   Height="25"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
-                  FontSize="11pt"/>
+                  FontSize="11pt"
+                  SelectionChanged="CmbCOMPorts_OnSelectionChanged"/>
         <Label Margin="200,5,0,0"
                Width="150"
                Height="30"
@@ -42,12 +43,36 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Margin="200,40,0,0">
-            <RadioButton x:Name="radBtn4800" FontSize="11pt">4800</RadioButton>
-            <RadioButton x:Name="radBtn9600" FontSize="11pt">9600</RadioButton>
-            <RadioButton x:Name="radBtn19200" FontSize="11pt">19200</RadioButton>
-            <RadioButton x:Name="radBtn38400" FontSize="11pt">38400</RadioButton>
-            <RadioButton x:Name="radBtn57600" FontSize="11pt">57600</RadioButton>
-            <RadioButton x:Name="radBtn115200" FontSize="11pt">115200</RadioButton>
+            <RadioButton x:Name="radBtn4800"
+                         FontSize="11pt"
+                         Checked="RadBtn_OnChecked">
+                4800
+            </RadioButton>
+            <RadioButton x:Name="radBtn9600"
+                         FontSize="11pt"
+                         Checked="RadBtn_OnChecked">
+                9600
+            </RadioButton>
+            <RadioButton x:Name="radBtn19200"
+                         FontSize="11pt"
+                         Checked="RadBtn_OnChecked">
+                19200
+            </RadioButton>
+            <RadioButton x:Name="radBtn38400"
+                         FontSize="11pt"
+                         Checked="RadBtn_OnChecked">
+                38400
+            </RadioButton>
+            <RadioButton x:Name="radBtn57600"
+                         FontSize="11pt"
+                         Checked="RadBtn_OnChecked">
+                57600
+            </RadioButton>
+            <RadioButton x:Name="radBtn115200"
+                         FontSize="11pt"
+                         Checked="RadBtn_OnChecked">
+                115200
+            </RadioButton>
         </StackPanel>
         <Label x:Name="lblStatus"
                        FontStyle="Italic"
