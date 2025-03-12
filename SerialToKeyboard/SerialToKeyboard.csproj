@@ -84,6 +84,11 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config"/>
+        <None Include="bin\Debug\SerialToKeyboard.exe.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="bin\Debug\SerialToKeyboard.exe" />
+      <Content Include="bin\Debug\SerialToKeyboard.pdb" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
